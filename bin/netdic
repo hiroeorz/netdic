@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+
+require "netdic.rb"
+
+dic = NetDic.new
+
+dic.dictionary_list.each_with_index do |dictionary, i|
+  puts "#{i}: #{dictionary[:name]}"
+end
+
+print "select dictionary(default: 0):"
+dic_id = gets.to_i
+
+dic.dictionary_id = dic.dictionary_list[dic_id][:id]
+
+while true
+  print "input search text: "
+  query_str = gets.strip
+  
+  next if query_str.empty?
+  
+  if query_str == "exit"
+    break
+  end
+  
+  dic.output_search_result(query_str)
+end
+
+puts
+puts "bye."
